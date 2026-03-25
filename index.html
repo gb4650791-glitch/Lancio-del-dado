@@ -1,0 +1,157 @@
+<!DOCTYPE HTML>
+<html>
+    <style>#Q{
+      border: solid;
+      width: 500px;
+      height: 30px;
+    }
+    #f{
+        border: dashed blue;
+        height: 20px;
+        width: auto;
+    }
+    body{
+        background-color: black;
+    }
+    p,h1{
+        color: white;
+    }
+    button{
+        padding: 10px;
+        border-block-color: grey;
+        margin: 5px;
+    }
+    #dado{
+        width: 180px;
+        height:180px;
+        background-color: white;
+        margin: 5px;
+        display:grid;
+        grid-template-columns: auto auto auto;
+        grid-template-rows: auto auto;
+    }
+    .cerchio{
+        width:50px;
+        height:50px;
+        border-radius: 50%;
+        background: black;
+    }
+    </style>
+<body>
+    <h1>Lancio del dado!</h1>
+    <p>Benvenuto al lancio del dado! Devi semplicemente premere 'lancia', e ti verra' dato un numero casuale da 1 a 6</p>
+    <p id="Q"></p>
+    <p id="f"></p>
+    <button>Lancia</button><br>
+    <button>Mostra nummeri usciti</button><br>
+    <button>Riparti da zero</button>
+    <button id="j">Fai media</button>
+    <section id="dado">
+        <div class="cerchio" id="1" hidden></div>
+        <div class="cerchio" id="2" hidden></div>
+        <div class="cerchio" id="3" hidden></div>
+        <div class="cerchio" id="4" hidden></div>
+        <div class="cerchio" id="5" hidden></div>
+        <div class="cerchio" id="6" hidden></div>
+    </section>
+<script>
+    let p = document.querySelectorAll("p")[1];
+    const button =  document.querySelector("button");
+    const button2 = document.querySelectorAll("button")[1];
+    const button3 = document.querySelectorAll("button")[2];
+    const button4 = document.getElementById("j");
+    let p2 = document.getElementById("f");
+     n_lanciati = [];
+    function lancia(){
+        n = Math.floor(Math.random()*10);
+        if (n>6){
+            n-=4;
+        }
+        if(n==0){
+            n++;
+        }
+        p.innerHTML = n;
+        n_lanciati.push(n);
+        if(p.innerHTML==1){
+            document.getElementById("4").hidden=false
+            document.getElementById("1").hidden=true
+            document.getElementById("2").hidden=true
+            document.getElementById("3").hidden=true
+            document.getElementById("5").hidden=true
+            document.getElementById("6").hidden=true
+            document.getElementById("4").style.width="120px"
+            document.getElementById("4").style.height="120px"
+            document.getElementById("4").style.margin="25px"
+        }
+        else{
+            document.getElementById("4").style.width="50px"
+            document.getElementById("4").style.height="50px"
+            document.getElementById("4").style.margin="0"
+            if(p.innerHTML==2){
+                document.getElementById("4").hidden=false
+                document.getElementById("6").hidden=false
+                document.getElementById("1").hidden=true
+                document.getElementById("2").hidden=true
+                document.getElementById("3").hidden=true
+                document.getElementById("5").hidden=true
+        }
+            else if(p.innerHTML==3){
+                document.getElementById("4").hidden=false
+                document.getElementById("5").hidden=false
+                document.getElementById("6").hidden=false
+                document.getElementById("1").hidden=true
+                document.getElementById("2").hidden=true
+                document.getElementById("3").hidden=true
+        }
+            else if(p.innerHTML==4){
+                document.querySelectorAll("div")[0].hidden=false
+                document.querySelectorAll("div")[1].hidden=false
+                document.querySelectorAll("div")[2].hidden=false
+                document.querySelectorAll("div")[3].hidden=false
+                document.querySelectorAll("div")[4].hidden=false
+                document.querySelectorAll("div")[5].hidden=true
+                document.getElementById("3").style.background="white"
+        }
+            else{
+                document.getElementById("3").style.background="black"
+            
+                if(p.innerHTML==5){
+                    document.getElementById("4").hidden=false
+                    document.getElementById("5").hidden=false
+                    document.getElementById("6").hidden=false
+                    document.getElementById("1").hidden=false
+                    document.getElementById("2").hidden=false
+                    document.getElementById("3").hidden=true
+                }
+                else if(p.innerHTML==6){
+                    document.getElementById("4").hidden=false
+                    document.getElementById("5").hidden=false
+                    document.getElementById("6").hidden=false
+                    document.getElementById("1").hidden=false
+                    document.getElementById("2").hidden=false
+                    document.getElementById("3").hidden=false
+                }
+            }
+        }
+    }
+    function show(){
+        p2.innerHTML = n_lanciati;
+    }
+    function zero(){
+        n_lanciati.length = 0;
+        p2.innerHTML = n_lanciati;
+    }
+    function media(){
+        sum = 0;
+        for (i=0; i<n_lanciati.length; i++){
+            sum+=n_lanciati[i];
+        }
+        p.innerHTML = sum/n_lanciati.length;
+    }
+    button.onclick = lancia;
+    button2.onclick = show;
+    button3.onclick = zero;
+    button4.onclick = media;
+    </script>
+</body>
+</html>
